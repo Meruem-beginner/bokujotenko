@@ -127,12 +127,19 @@
   }
   .cell.dir-left { flex-direction: row; }
   .cell.dir-right { flex-direction: row-reverse; }
+
+  /* ★【追加】右向きの駒の画像を左右反転させる★ */
+  .cell.dir-right .seg-image,
+  .next-cell.dir-right .seg-image {
+    transform: scaleX(-1);
+  }
+
   .cell.empty { background-color: #f8fafc; border-color: #e2e8f0; box-shadow: none; }
   .cell.highlight { background-color: #fef08a !important; border-color: #ca8a04; }
 
   /* ========================================================
-     【頭・体・お尻】パーツのレイアウト
-     ======================================================== */
+      【頭・体・お尻】パーツのレイアウト
+      ======================================================== */
   .segment {
     flex: 1;
     height: 100%;
@@ -158,6 +165,8 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    /* transform のアニメーションを入れると滑らかになります（オプション） */
+    transition: transform 0.1s ease; 
   }
 
   /* 動物名テキスト（駒の中央にオーバーレイ表示） */
@@ -186,11 +195,11 @@
   .cell[data-type="yagyu"] .animal-label { color: #991b1b; }
 
   /* ========================================================
-     ★【画像組み込み用 CSSエリア】★
-     画像を用意したら、ここに url('ファイルのパス') を入れるだけで
-     自動的に頭・体・お尻の画像が反映されます！
-     （設定時は color: transparent; を有効にすると「顔」「体」の文字が消えます）
-     ======================================================== */
+      ★【画像組み込み用 CSSエリア】★
+      画像を用意したら、ここに url('ファイルのパス') を入れるだけで
+      自動的に頭・体・お尻の画像が反映されます！
+      （設定時は color: transparent; を有効にすると「顔」「体」の文字が消えます）
+      ======================================================== */
   /* ひよこ・きつね (1マス) */
   .cell[data-type="hiyoko"] .seg-head  { background-image: url('img/hiyoko.png'); color: transparent; }
   .cell[data-type="kitsune"] .seg-head { background-image: url('img/kitsune.png'); color: transparent; }
@@ -704,7 +713,7 @@ function executeAI() {
         <div style="font-size:11px; color:#64748b; margin-top:4px;">(AI評価スコア: ${bestMove.score})</div>
       `;
     } else {
-      aiBox.innerHTML = '<span style="color:#dc2626; font-weight:bold;">有効な手がありません（動かせる駒がないか、ゲームオーバー目前です）。</span>';
+      aiBox.innerHTML = '<span style="color:#dc2626; font-weight:bold;">有効な手がありません（動かせる駒がないか、ゲームオーバー目の前です）。</span>';
     }
   }, 50);
 }
